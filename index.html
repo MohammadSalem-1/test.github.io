@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAGASA Galaxy</title>
+    <title>NAGASA Galaxy - Login</title>
     <style>
         body {
             margin: 0;
@@ -93,12 +93,35 @@
             transform: scale(1.05);
         }
 
+        .eye-icon {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+        }
+
         .footer {
             position: absolute;
             bottom: 10px;
             width: 100%;
             text-align: center;
             color: #aaa;
+        }
+
+        .first-time-link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .first-time-link:hover {
+            color: #00e6ff;
         }
     </style>
 </head>
@@ -119,9 +142,13 @@
     <!-- Login Form -->
     <div class="login-form">
         <h2>Login to NAGASA</h2>
-        <input type="text" placeholder="Username" required>
-        <input type="password" placeholder="Password" required>
+        <input type="text" id="usernameField" placeholder="Username" required />
+        <div class="eye-wrapper">
+            <input type="password" id="passwordField" placeholder="Password" required />
+            <span id="eyeIcon" class="eye-icon" style="background-image: url('https://assets.onecompiler.app/42ydxf8da/43487r2b9/ud,k2.png');"></span>
+        </div>
         <button type="submit">Login</button>
+        <a href="first-time.html" class="first-time-link">First Time? Click Here</a> <!-- Link to the first time page -->
     </div>
 
     <!-- Footer -->
@@ -129,15 +156,18 @@
         &copy; 2024 NAGASA Galaxy - All Rights Reserved.
     </div>
 
-    <!-- JavaScript for Stars and Mouse/Touch Interaction -->
+    <!-- JavaScript for Stars, Mouse/Touch Interaction, and Eye Behavior -->
     <script>
         const canvas = document.getElementById("galaxyCanvas");
         const ctx = canvas.getContext("2d");
+        const passwordField = document.getElementById("passwordField");
+        const eyeIcon = document.getElementById("eyeIcon");
+        let stars = [];
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        let stars = [];
-
+        // Star Class
         class Star {
             constructor(x, y) {
                 this.x = x || Math.random() * canvas.width;
@@ -163,6 +193,7 @@
             }
         }
 
+        // Function to initialize stars
         function init() {
             stars = [];
             for (let i = 0; i < 300; i++) {
@@ -170,6 +201,7 @@
             }
         }
 
+        // Function to animate stars
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             stars.forEach(star => star.update());
@@ -192,12 +224,27 @@
             }
         });
 
+        // Toggle eye on password visibility
+        let passwordVisible = false;
+        eyeIcon.addEventListener("click", () => {
+            passwordVisible = !passwordVisible;
+            if (passwordVisible) {
+                passwordField.type = "text"; // Show password
+                eyeIcon.style.backgroundImage = "url('https://assets.onecompiler.app/42ydxf8da/43487r2b9/ud,k2.png')"; // Change to closed-eye image
+            } else {
+                passwordField.type = "password"; // Hide password
+                eyeIcon.style.backgroundImage = "url('https://assets.onecompiler.app/42ydxf8da/43487r2b9/ud,k2.png')"; // Change back to open-eye image
+            }
+        });
+
+        // Resize the canvas when the window size changes
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             init();
         });
 
+        // Initialize stars and start animation
         init();
         animate();
     </script>
