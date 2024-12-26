@@ -21,16 +21,16 @@
 
     <script>
         function login() {
-            // Â‰«   Õﬁﬁ „‰ «”„ «·„” Œœ„ Êﬂ·„… «·„—Ê—
+            // √•√§√á √ä√ä√ç√û√û √£√§ √á√ì√£ √á√°√£√ì√ä√é√è√£ √¶√ü√°√£√â √á√°√£√ë√¶√ë
             const username = document.getElementById("usernameField").value;
             const password = document.getElementById("passwordField").value;
             
-            //  Œ“Ì‰ Õ«·…  ”ÃÌ· «·œŒÊ· (Ì„ﬂ‰ﬂ ≈÷«›…  Õﬁﬁ ÕﬁÌﬁÌ „‰ «·»Ì«‰«  Â‰«)
+            // √ä√é√í√≠√§ √ç√á√°√â √ä√ì√å√≠√° √á√°√è√é√¶√° (√≠√£√ü√§√ü √Ö√ñ√á√ù√â √ä√ç√û√û √ç√û√≠√û√≠ √£√§ √á√°√à√≠√á√§√á√ä √•√§√á)
             if (username && password) {
-                //  Œ“Ì‰ «”„ «·„” Œœ„ ›Ì «·–«ﬂ—… (· √ﬂÌœ  ”ÃÌ· «·œŒÊ·)
+                // √ä√é√í√≠√§ √á√ì√£ √á√°√£√ì√ä√é√è√£ √ù√≠ √á√°√ê√á√ü√ë√â (√°√ä√É√ü√≠√è √ä√ì√å√≠√° √á√°√è√é√¶√°)
                 localStorage.setItem('loggedIn', true);
                 localStorage.setItem('username', username);
-                window.location.href = "home.html";  // ≈⁄«œ…  ÊÃÌÂ ≈·Ï «·’›Õ… «·—∆Ì”Ì…
+                window.location.href = "home.html";  // √Ö√ö√á√è√â √ä√¶√å√≠√• √Ö√°√¨ √á√°√ï√ù√ç√â √á√°√ë√Ü√≠√ì√≠√â
             } else {
                 alert("Please enter valid username and password!");
             }
