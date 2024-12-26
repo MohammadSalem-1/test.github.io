@@ -1,40 +1,205 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAGASA Galaxy - Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>NAGASA Galaxy</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: radial-gradient(circle, #0f0f1b, #02020a);
+            color: #fff;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .navbar h1 {
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #00e6ff;
+        }
+
+        .navbar .links a {
+            margin: 0 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .navbar .links a:hover {
+            color: #00e6ff;
+            text-shadow: 0 0 10px #00e6ff;
+        }
+
+        .login-form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px #00e6ff;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #00e6ff;
+            color: #000;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-form button:hover {
+            box-shadow: 0 0 15px #00e6ff;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: #aaa;
+        }
+    </style>
 </head>
 <body>
-    <div class="login-form">
-        <h2>Login to NAGASA</h2>
-        <input type="text" id="usernameField" placeholder="Username" required />
-        <div class="eye-wrapper">
-            <input type="password" id="passwordField" placeholder="Password" required />
-            <span id="eyeIcon" class="eye-icon"></span>
+    <canvas id="galaxyCanvas"></canvas>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>NAGASA</h1>
+        <div class="links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Gallery</a>
+            <a href="#">Contact</a>
         </div>
-        <button onclick="login()">Login</button>
-        <a href="first-time.html">First Time?</a>
     </div>
 
+    <!-- Login Form -->
+    <div class="login-form">
+        <h2>Login to NAGASA</h2>
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2024 NAGASA Galaxy - All Rights Reserved.
+    </div>
+
+    <!-- JavaScript for Stars and Mouse/Touch Interaction -->
     <script>
-        function login() {
-            // åäÇ ÊÊÍÞÞ ãä ÇÓã ÇáãÓÊÎÏã æßáãÉ ÇáãÑæÑ
-            const username = document.getElementById("usernameField").value;
-            const password = document.getElementById("passwordField").value;
-            
-            // ÊÎÒíä ÍÇáÉ ÊÓÌíá ÇáÏÎæá (íãßäß ÅÖÇÝÉ ÊÍÞÞ ÍÞíÞí ãä ÇáÈíÇäÇÊ åäÇ)
-            if (username && password) {
-                // ÊÎÒíä ÇÓã ÇáãÓÊÎÏã Ýí ÇáÐÇßÑÉ (áÊÃßíÏ ÊÓÌíá ÇáÏÎæá)
-                localStorage.setItem('loggedIn', true);
-                localStorage.setItem('username', username);
-                window.location.href = "home.html";  // ÅÚÇÏÉ ÊæÌíå Åáì ÇáÕÝÍÉ ÇáÑÆíÓíÉ
-            } else {
-                alert("Please enter valid username and password!");
+        const canvas = document.getElementById("galaxyCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+
+        class Star {
+            constructor(x, y) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.radius = Math.random() * 2 + 0.5;
+                this.dy = Math.random() * 0.5 + 0.1;
+                this.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.y += this.dy;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                }
+                this.draw();
             }
         }
+
+        function init() {
+            stars = [];
+            for (let i = 0; i < 300; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => star.update());
+            requestAnimationFrame(animate);
+        }
+
+        // Add mouse and touch interactions
+        window.addEventListener("mousemove", (e) => {
+            let starCount = 10; // Number of stars added on mousemove
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new Star(e.x, e.y));
+            }
+        });
+
+        window.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            let starCount = 10;
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new Star(e.touches[0].pageX, e.touches[0].pageY));
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
     </script>
 </body>
 </html>
