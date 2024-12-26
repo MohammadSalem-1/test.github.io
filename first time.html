@@ -1,0 +1,35 @@
+<!-- first-time.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAGASA Galaxy - First Time</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-form">
+        <h2>Welcome to NAGASA!</h2>
+        <p>Please fill in the details to create an account.</p>
+        <input type="text" id="newUsername" placeholder="Create Username" required />
+        <input type="password" id="newPassword" placeholder="Create Password" required />
+        <button onclick="createAccount()">Create Account</button>
+        <a href="login.html">Already have an account?</a>
+    </div>
+
+    <script>
+        function createAccount() {
+            const username = document.getElementById("newUsername").value;
+            const password = document.getElementById("newPassword").value;
+
+            if (username && password) {
+                localStorage.setItem('loggedIn', true);
+                localStorage.setItem('username', username);
+                window.location.href = "home.html";  // ≈⁄«œ…  ÊÃÌÂ ≈·Ï «·’›Õ… «·—∆Ì”Ì… »⁄œ ≈‰‘«¡ «·Õ”«»
+            } else {
+                alert("Please enter both username and password!");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAGASA Galaxy - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-form">
+        <h2>Login to NAGASA</h2>
+        <input type="text" id="usernameField" placeholder="Username" required />
+        <div class="eye-wrapper">
+            <input type="password" id="passwordField" placeholder="Password" required />
+            <span id="eyeIcon" class="eye-icon"></span>
+        </div>
+        <button onclick="login()">Login</button>
+        <a href="first-time.html">First Time?</a>
+    </div>
+
+    <script>
+        function login() {
+            // Â‰«   Õﬁﬁ „‰ «”„ «·„” Œœ„ Êﬂ·„… «·„—Ê—
+            const username = document.getElementById("usernameField").value;
+            const password = document.getElementById("passwordField").value;
+            
+            //  Œ“Ì‰ Õ«·…  ”ÃÌ· «·œŒÊ· (Ì„ﬂ‰ﬂ ≈÷«›…  Õﬁﬁ ÕﬁÌﬁÌ „‰ «·»Ì«‰«  Â‰«)
+            if (username && password) {
+                //  Œ“Ì‰ «”„ «·„” Œœ„ ›Ì «·–«ﬂ—… (· √ﬂÌœ  ”ÃÌ· «·œŒÊ·)
+                localStorage.setItem('loggedIn', true);
+                localStorage.setItem('username', username);
+                window.location.href = "home.html";  // ≈⁄«œ…  ÊÃÌÂ ≈·Ï «·’›Õ… «·—∆Ì”Ì…
+            } else {
+                alert("Please enter valid username and password!");
+            }
+        }
+    </script>
+</body>
+</html>
